@@ -4,6 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "startall": "node app.js",
+    "starterrors": "node errors.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

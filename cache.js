@@ -2,9 +2,9 @@ var fs = require('fs');
 var util = require('util');
 var request = require('request');
 
-module.exports = function(options) {
-  var format = options.format || './cache/%s.html';
-  var source = options.source || 'http://www.mtgtop8.com/event?e=%d'
+module.exports = function() {
+  var format = './cache/%s.html';
+  var source = 'http://www.mtgtop8.com/event?e=%d'
 
   return {
     get: function(id, fn) {

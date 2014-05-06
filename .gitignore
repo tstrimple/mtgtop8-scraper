@@ -47,4 +47,5 @@ build/Release
 node_modules
 
 *.html
-*.json
+errors.json
+results/*.json
