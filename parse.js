@@ -40,7 +40,28 @@ function getCardsFromSection($, section) {
   return cards;
 }
 
-var parse = async.applyEach([getFormatAndDate, getEvent, getCards]);
+function getDeckName($, data, done) {
+  var deck = $('td.S16').text().trim();
+  var startTrim = deck.indexOf('] ');
+  if(startTrim > 0) {
+    deck = deck.substr(startTrim + 2, deck.length);
+  } else {
+    deck = deck.substr(3, deck.length);    
+  }
+
+  var parts = deck.split('-');
+  if(parts.length > 0) {
+    data.deck = parts[0].trim();
+  }
+
+  if(parts.length > 1) {
+    data.player = parts[1].trim();
+  }
+  
+  done(null, data);
+}
+
+var parse = async.applyEach([getFormatAndDate, getEvent, getCards, getDeckName]);
 
 module.exports = function(page, data, fn) {
   var $ = cheerio.load(page);

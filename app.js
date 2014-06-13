@@ -1,4 +1,5 @@
 var scrape = require('./scrape');
+var fs = require('fs');
 var ids = [];
 var completeCount = 0;
 var total = 7500;
