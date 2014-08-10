@@ -11,7 +11,6 @@ var total = 1;
 module.exports = function(ids, fn) {
   total = ids.length;
 
-  // call "processId" for each id (limiting to 20 at a time)
   async.eachLimit(ids, 20, processId, function(err) {
     saveErrors();
     fn(err);
@@ -30,10 +29,7 @@ function saveResults(id, data, fn) {
 function processId(id, next) {
   process.stdout.write(' ' + ((completeCount / total) * 100).toFixed() + '%\r');
 
-  // Check if the file exists in "./cache"
   if(!cache.exists(id)) {
-
-    // update the cache with this file
     return cache.update(id, function(err) {
       if(err) {
         return next(err);
@@ -45,7 +41,6 @@ function processId(id, next) {
     });
   }
 
-  // Read the file from "./cache"
   cache.get(id, function(err, page) {
     if(err) {
       return next(err);
