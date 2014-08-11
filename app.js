@@ -1,8 +1,9 @@
 var scrape = require('./scrape');
 var fs = require('fs');
 var ids = [];
+var startid = 1;
 var completeCount = 0;
-var total = 7500;
+var total = 7959; // 03-08-2014 -- SCG Dallas
 
 var ignoredIds = fs.readFileSync('./ignore.json');
 
@@ -16,7 +17,7 @@ function contains(a, obj) {
     return false;
 }
 
-for(var id = 1; id <= total; id++) {
+for(var id = startid; id <= total; id++) {
   if(!contains(ignoredIds, id)) {
     ids.push(id);
   }

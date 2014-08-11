@@ -10,6 +10,7 @@ var total = 1;
 
 module.exports = function(ids, fn) {
   total = ids.length;
+
   async.eachLimit(ids, 20, processId, function(err) {
     saveErrors();
     fn(err);
@@ -27,6 +28,7 @@ function saveResults(id, data, fn) {
 
 function processId(id, next) {
   process.stdout.write(' ' + ((completeCount / total) * 100).toFixed() + '%\r');
+
   if(!cache.exists(id)) {
     return cache.update(id, function(err) {
       if(err) {

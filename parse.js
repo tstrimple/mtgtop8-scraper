@@ -1,10 +1,27 @@
 var cheerio = require('cheerio');
 var async = require('async');
+var util = require('util');
+
+function isDate(item) {
+  var matches = item.match(/(\d+)(-|\/)(\d+)(?:-|\/)(?:(\d+)\s+(\d+):(\d+)(?::(\d+))?(?:\.(\d+))?)?/);
+
+  if (!item || item[2] !== "/") {
+    return false;
+  }
+
+  return (new Date(item) !== 'Invalid Date');
+}
 
 function getFormatAndDate($, data, fn) {
   var parts = $('td.S14').text().trim().split(' ');
   data.format = parts[0];
-  data.date = parts[1];
+
+  for (var i = 1; i < parts.length; i++) {
+    if (isDate(parts[i].trim())) {
+      data.date = parts[i].trim();
+    }
+  };
+
   fn(null, data);
 }
 
